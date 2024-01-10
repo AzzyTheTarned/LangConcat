@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 #include <fstream>
+
 typedef std::set<std::string> Lang;
 
 void printLang(Lang l) {
@@ -17,14 +18,14 @@ void initLang(Lang &l, bool n) {
     short file_num;
     n ? filename = "lang2.txt" : filename = "lang1.txt";
     n ? file_num = 2 : file_num = 1;
-
+    
     std::ifstream fin(filename);
     if (!fin.is_open()) {
         std::cout << "Ошибка открытия файла " << file_num << "." << std::endl;
         return;
     }
+    
     std::string buff;
-
     int i = 0;
     while (std::getline(fin, buff)) {
         i++;
@@ -38,29 +39,9 @@ void initLang(Lang &l, bool n) {
         }
         l.insert(buff);
     }
-
+    
     std::cout << "Язык " << file_num << std::endl;
     printLang(l);
-
-    
-    // while (std::cin >> buff) {
-    //     if (l.size() >= 10000) {
-    //         std::cout << "Длина языка не должна превышать 10000" << std::endl;
-    //         printLang(l);
-    //         continue;
-    //     }
-    //     if (buff.size() > 100) {
-    //         std::cout << "Длина цепочки не должна превышать 100 (" << buff.size() << ")" << std::endl;
-    //         printLang(l);
-    //         continue;
-    //     }
-    //     if (l.count(buff) == 1) {
-    //         std::cout << "Такая цепочка уже есть" << std::endl;
-    //         printLang(l);
-    //         continue;
-    //     }
-    //     printLang(l);
-    // }
 }
 
 Lang concatLangs(Lang l1, Lang l2) {
@@ -80,10 +61,13 @@ int main() {
 
     initLang(l1, 0);
     std::cout << std::endl;
+    
     initLang(l2, 1);
     std::cout << std::endl;
+    
     std::cout << "Конкатенированный язык:" << std::endl;
     printLang(concatLangs(l1, l2));
+    
     std::cout << std::endl;
     
     return 0;
